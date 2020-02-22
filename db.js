@@ -61,6 +61,20 @@ const readAdjectives = async()=> {
   return (await client.query('SELECT * FROM adjectives')).rows;
 }
 
+//Delete noun, verb, adjective
+const deleteNoun = async( id ) => {
+  const SQL = 'DELETE FROM nouns WHERE id = $1';
+  return (await client.query(SQL, [id]));
+}
+const deleteVerb = async( id ) => {
+  const SQL = 'DELETE FROM verbs WHERE id = $1';
+  return (await client.query(SQL, [id]));
+}
+const deleteAdjective = async( id ) => {
+  const SQL = 'DELETE FROM adjectives WHERE id = $1';
+  return (await client.query(SQL, [id]));
+}
+
 module.exports = {
   sync,
   createNouns,
@@ -68,5 +82,8 @@ module.exports = {
   createAdjectives,
   readNouns,
   readVerbs,
-  readAdjectives
+  readAdjectives,
+  deleteNoun,
+  deleteVerb,
+  deleteAdjective
 }
