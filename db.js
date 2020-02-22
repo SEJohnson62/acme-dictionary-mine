@@ -13,39 +13,39 @@ const sync = async()=> {
 
   CREATE TABLE nouns(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(100);
+    name VARCHAR(100)
   );
 
   CREATE TABLE adjectives(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(100);
+    name VARCHAR(100)
   );
 
   CREATE TABLE verbs(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(100);
+    name VARCHAR(100)
   );
   `;
   await client.query(SQL);
   await Promise.all([
-    createNoun(),
-    createVerb(),
-    createAdjective()
+    createNouns(),
+    createVerbs(),
+    createAdjectives()
   ]);
 };
 
 //CRUD
 //Create tables
 //Create nouns, verbs, adjectives
-const createNoun = async()=> {
+const createNouns = async()=> {
   const SQL = 'INSERT INTO nouns(name) values($1) returning *';
   return (await client.query(SQL, [faker.hacker.noun()] )).rows[0];
 };
-const createVerb = async()=> {
+const createVerbs = async()=> {
   const SQL = 'INSERT INTO verbs(name) values($1) returning *';
   return (await client.query(SQL, [faker.hacker.verb()] )).rows[0];
 }
-const createAdjective = async()=> {
+const createAdjectives = async()=> {
   const SQL = 'INSERT INTO adjectives(name) values($1) returning *';
   return (await client.query(SQL, [faker.hacker.adjective()] )).rows[0];
 }

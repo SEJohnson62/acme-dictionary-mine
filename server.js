@@ -1,9 +1,15 @@
 const express = require('express');
-//const path = require('path');
+const path = require('path');
 const app = express();
 const db = require('./db');
 
   app.use(require('cors')());
+ // middlewear
+ app.use('/assets', express.static(path.join(__dirname, 'assets')));
+ app.get('/',(req, res) => {
+   res.sendFile(path.join(__dirname, 'index.html'));
+ })
+
   app.use(express.json());
   app.get('/api/nouns', (req, res, next) => {
     db.readNouns()
@@ -21,17 +27,17 @@ const db = require('./db');
       .catch(next);
   });
   app.post('/api/nouns', (req, res, next)  => {
-    db.createNouns(req.body)
+    db.createNouns()
       .then( word => res.send(word))
       .catch(next);
   });
   app.post('/api/verbs', (req, res, next)  => {
-    db.createVerbs(req.body)
+    db.createVerbs()
       .then( word => res.send(word))
       .catch(next);
   });
   app.post('/api/adjectives', (req, res, next)  => {
-    db.createAdjectives(req.body)
+    db.createAdjectives()
       .then( word => res.send(word))
       .catch(next);
   });
@@ -41,3 +47,4 @@ const db = require('./db');
       console.log('synced');
       app.listen(port, ()=> console.log(`listening on port ${port}`));
     })
+    .catch(ex=>console.log(ex));
