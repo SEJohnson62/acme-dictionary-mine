@@ -46,18 +46,18 @@ app.post('/api/adjectives', (req, res, next) => {
 
 //DELETE
 app.delete('/api/nouns/:id', (req, res, next) => {
-  db.deleteNoun(req.body)
-    .then( word => res.send(word) )
+  db.deleteNoun(req)
+    .then( () => res.sendStatus(204) )
     .catch(next);
 })
 app.delete('/api/verbs/:id', (req, res, next) => {
-  db.deleteVerb(req.body)
-    .then( word => res.send(word) )
+  db.deleteVerb(req)
+    .then( () => res.sendStatus(204) )
     .catch(next);
 })
 app.delete('/api/adjectives/:id', (req, res, next) => {
-  db.deleteAdjective(req.body)
-    .then( word => res.send(word) )
+  db.deleteAdjective(req)
+    .then( () => res.sendStatus(204) )
     .catch(next);
 })
 
